@@ -3,7 +3,7 @@ title: 使用 Netlify 10 分鐘上線 Gatsby 靜態網站
 date: "2019-08-22T02:42:25.271Z"
 template: "post"
 draft: false
-slug: "/posts/how-to-setup gatsby-site-with-netlify-very-fast/"
+slug: "/posts/how-to-setup-gatsby-site-with-netlify-very-fast/"
 category: "Development"
 tags:
   - "netlify"
