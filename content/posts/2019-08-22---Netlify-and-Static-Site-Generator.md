@@ -24,4 +24,4 @@ description: "使用 Netlify 可以很快速的上線個人網站。"
 
 首先要先建立一個 [Netlify](https://www.netlify.com/?utm_source=podcast&utm_medium=partner&utm_campaign=syntax) 帳戶，因為接下來要跟 GitHub 連結，所以我直接用 GitHub 來建立帳戶。
 
-[建立帳戶](/media/2019-08-22/01.jpg)
+![建立帳戶](/media/2019-08-22/01.jpg)
