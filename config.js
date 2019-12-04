@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://frontendcafe.dev',
   pathPrefix: '/',
   title: '前端咖啡 Frontend Cafe',
-  subtitle: '原創、純淨的內容，就像單品咖啡。',
+  subtitle: 'A website about frontend development.',
   copyright: '© All rights reserved.',
   disqusShortname: '',
   postsPerPage: 4,
@@ -29,7 +29,7 @@ module.exports = {
     photo: '/photo.jpeg',
     bio: 'Frontend Engineer',
     contacts: {
-      email: 'yowlonglee@gmail.com',
+      email: 'hello@frontendcafe.dev',
       twitter: '@yowlonglee',
       github: 'yowlonglee'
       // rss: '#'
