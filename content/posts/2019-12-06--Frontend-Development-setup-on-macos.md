@@ -330,9 +330,10 @@ Oh My Zsh 自帶許多主題，Robbyrussell 和 Agnoster 是其中二個，完�
 
 到 iTerm2 的設定 `Profile > Colors`，在 `Color Presets` 分類選擇 `Import` 匯入下載的主題，之後就可以選擇任一個已匯入的主題。
 
-[iTerm2 themes](https://iterm2colorschemes.com)
-[Dracula — A dark theme for iTerm and 50+ apps](https://draculatheme.com/iterm/)
-[NightOwl](https://github.com/sdras/night-owl-vscode-theme)
+分享幾個不錯的主題來源：
+- [iTerm2 themes](https://iterm2colorschemes.com)
+- [Dracula — A dark theme for iTerm and 50+ apps](https://draculatheme.com/iterm/)
+- [NightOwl](https://github.com/sdras/night-owl-vscode-theme)
 
 我用的是 NightOwl，它同時也有 VSCode 用的主題。
 
