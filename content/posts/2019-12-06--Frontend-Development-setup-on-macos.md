@@ -141,15 +141,18 @@ nvm install --lts
 
 這裡解釋一下 Node.js 的開發流程，為了兼顧開發及運用雙方的需求，每個版本的 Node.js 會經歷幾個開發時期。
 
+![Node.js development schedule](/media/2019-12-06-frontend-development-setup-on-macos/schedule.svg)
+（Node.js 開發時程表。來源：[Node.js 官網](https://nodejs.org/en/about/releases/)）
+
 首先是 Current 時期，在這個時候會大量加入新功能，讓一些基於 Node.js 的程式庫開發能趕上更新。
 
-Current 時期會持續6個月，結束後啟動下一個版本號的 Current 開發，同時原本的版本號進入 18 個月的 Active LTS 時期。LTS 是 long-term support 的縮寫，這個時候主要工作在除錯，讓程式更穩定，不會再加入新的功能。
+Current 時期會持續6個月，結束後啟動下一個版本號的 Current 開發，如上面的時程表，12的 Current 結束後接著13的 Current，然後又接14。同時原本的版本號進入 18 個月的 Active LTS 時期。LTS 是 long-term support 的縮寫，這個時候主要工作在除錯，讓程式更穩定，不會再加入新的功能。
 
 再接下來的 12 個月就進入 Maintainance LTS 時期，這個時候重大的錯誤應該都除完了，只剩下修複一些小 bug。
 
 30 個月（6+18+12）過後這個版本已經到了生命末期，不會再有維護及更新，即將被淘汰。
 
-還有一個要注意的是，單數版本的 Node.js 在 Current 時期結束後直接被淘汰，不會經歷 LTS，直接開始下一個雙數版本的 Current 開發。雙數版本會經歷完整的開發及維護週期，長達三年，這也是為什麼 LTS 都是雙數版本的原因。
+還有一個要注意的是，單數版本的 Node.js 在 Current 時期結束後直接被淘汰，不會經歷 LTS，直接開始下一個雙數版本的 Current 開發。雙數版本會經歷完整的開發及維護週期，長達三年，這也是為什麼 LTS 都是雙數版本的原因。從上面的時程表可以看到版本13和版本12及14的差別在於13只有 Current 時期。
 
 那麼要怎麼選擇呢？如果是商業上 production 的專案，選擇 LTS 版本，最長有30個月的穩定維護時間，在網頁應用上非常足夠。如果是個人的 side project 就可以用 Current 版本，享受最新功能帶來的便利。
 
@@ -235,7 +238,10 @@ Node.js 也可以在官網下載安裝檔執行自動安裝，或者用 Homebrew
 
 ## 安裝 Oh My Zsh
 
-macOS 終端機的預設環境一直都是[Bash](https://zh.wikipedia.org/zh-tw/Bash)，從10.15 Catalina開始改成 [Zsh](https://zh.wikipedia.org/zh-tw/Z_shell)，使用上是沒有差別，不過Zsh有個框架 [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) 可以讓我們的終端機外觀更好看，顯示功能更強大。
+macOS 終端機的預設環境一直都是 [Bash](https://zh.wikipedia.org/zh-tw/Bash)，從 10.15 Catalina 開始改成 [Zsh](https://zh.wikipedia.org/zh-tw/Z_shell)，使用上是沒有差別，不過 Zsh 有個框架 [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) 可以讓我們的終端機外觀更好看，顯示功能更強大。
+
+![Zsh](/media/2019-12-06-frontend-development-setup-on-macos/zsh.jpg)
+（macOS 的 Zsh）
 
 安裝方式很簡單，在 terminal app 貼上一行 curl 指令。
 
@@ -243,16 +249,23 @@ macOS 終端機的預設環境一直都是[Bash](https://zh.wikipedia.org/zh-tw/
 sh -c “$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)”
 ```
 
-重啟 terminal app，看到畫面有些不一樣，多了一些色彩，我們還可以更進一步變更主題。
+![Oh My Zsh](/media/2019-12-06-frontend-development-setup-on-macos/oh-my-zsh.jpg)
+（安裝了 Oh My Zsh）
+
+重啟 terminal app，發現 command prompt 位置變了，符號被上了色彩，這是 Oh My Zsh 預設的 Robbyrussell 主題，我們來換一個。
 
 在 home directory 裡找到隱藏檔 `.zshrc` 用文字編輯器打開它，這裡是 Zsh 環境的設定，以及在全域可以使用的指令。
 
-找到 `ZSH_THEME` 這行，將預設的 `robbyrussell` 主題名稱改成 `agnoster`，存檔並重啟 terminal app 看到畫面多了奇怪的符號，這是因為 Agnoster 主題使用特殊的符號，電腦缺少對應的字體。
+找到 `ZSH_THEME` 這行，將預設的 `robbyrussell` 主題名稱改成 `agnoster`，存檔並重啟 terminal app。
+
+![Agnoster](/media/2019-12-06-frontend-development-setup-on-macos/agnoster.jpg)
+（Agnoster 主題）
+
+畫面多了奇怪的符號，這是因為 Agnoster 主題使用特殊的符號，電腦缺少對應的字體。
 
 ## 安裝 Powerline 字體
- [Powerline](https://github.com/powerline/fonts) 
 
-我們要先下載整個 Powerline fonts repo 到本機，然後執行裡面的自動安裝腳本，裝好後再刪除這個repo。
+我們要先下載整個 [Powerline fonts repo](https://github.com/powerline/fonts)  到本機，然後執行裡面的自動安裝腳本，裝好後再刪除這個 repo。
 
 ```shell
 # 複製整個 repo 到本機端
@@ -269,14 +282,19 @@ rm -rf fonts
 
 現在打開 Font Book app 會在 user 類別裡多了許多新字體，完整字體清單可以參考官方 GitHub readme。
 
+![Set font in terminal app](/media/2019-12-06-frontend-development-setup-on-macos/font-setting.jpg)
+
 接下來打開 terminal app，在 `Preference > Profile > Text > Font`  按右邊的按鈕，選擇一個剛才安裝的字體，以及適合的字體大小，我是用 Fira Mono for Powerline Regular 14px。
+
+![Powerline installed](/media/2019-12-06-frontend-development-setup-on-macos/powerline.jpg)
 
 回來 terminal app，剛才亂碼的地方現在成為漂亮的箭頭，變得比較好看了！
 
 ## 隱藏 user@hostname 提示
-現在每個輸入行前面都有一長串的`user@hostname`的提示字元，我這裡是`yowlonglee@Yow-Longs-MacBook-Pro-15`，實在佔螢幕空間。這是 Agnoster 主題的`prompt_context`功能，在 command prompt 顯示目前登入的帳號與主機名稱。然而當我們是在自己的機器上開發時，這串訊息就顯得多餘。
 
-在`~/.oh-my-zsh/themes/agnoster.zsh-theme`裡有 Agnoster 主題的設定，找到`prompt_context()`這段函式：
+現在每個輸入行前面都有一長串的 `user@hostname` 的提示字元，我這裡是 `yowlonglee@Yow-Longs-MacBook-Pro-15`，實在佔螢幕空間。這是 Agnoster 主題的 `prompt_context` 功能，在 command prompt 顯示目前登入的帳號與主機名稱。然而當我們是在自己的機器上開發時，這串訊息就顯得多餘。
+
+在 `~/.oh-my-zsh/themes/agnoster.zsh-theme` 裡有 Agnoster 主題的設定，找到 `prompt_context()` 這段函式：
 
 ```shell
 # Context: user@hostname (who am I and where am I)
@@ -287,43 +305,58 @@ prompt_context() {
 }
 ```
 
-當`$USER`和`$DEFAULT_USER`的值不相等時就會顯示這個提示，而 Agnoster 主題`$DEFAULT_USER`預設是空值，因此只要在`~/.zshrc`設定檔任一個地方把`DEFAULT_USER`加上你的使用者名稱讓`$USER`和`$DEFAULT_USER`二個值一樣就能隱藏這個提示。使用者名稱是你 macOS 登入的帳號，或者在 command line 輸入`whoami`也可以查得到，我的使用者名稱是`yowlonglee`。
+當 `$USER` 和 `$DEFAULT_USER` 的值不相等時就會顯示這個提示，而 Agnoster 主題 `$DEFAULT_USER` 預設是空值，因此只要在設定檔任一個地方把 `DEFAULT_USER` 加上你的使用者名稱讓 `$USER` 和 `$DEFAULT_USER` 二個值一樣就能隱藏這個提示。
+
+使用者名稱是你 macOS 登入的帳號，或者在 command line 輸入 `whoami` 也可以查得到，我的使用者名稱是 `yowlonglee`。
 
 ```shell
 # ~/.zshrc
 DEFAULT_USER=“yowlonglee”
 ```
 
+![Our new terminal!](/media/2019-12-06-frontend-development-setup-on-macos/terminal.jpg)
+
 存檔後重啟 terminal，之前礙眼的文字都消失了，畫面是不是既乾淨又清爽呢？
 
-Oh My Zsh 自帶許多主題，robbyrussell 和 agnoster 是其中二個，完整清單在[這裡](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes)，主題的檔案在`~/.oh-my-zsh/themes/`裡面。要使用裡面沒有的主題則要另外安裝，例如另一個熱門的強大主題[Powerlevel9k](https://github.com/Powerlevel9k/powerlevel9k)，請參考 readme 裡的安裝方法。
+Oh My Zsh 自帶許多主題，Robbyrussell 和 Agnoster 是其中二個，完整清單在[這裡](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes)，主題的檔案在 `~/.oh-my-zsh/themes/` 裡面。要使用裡面沒有的主題則要另外安裝，例如另一個熱門的強大主題 [Powerlevel9k](https://github.com/Powerlevel9k/powerlevel9k)，請參考 readme 裡的安裝方法。
 
 ## iTerm2
 
-要進一步變更終端環境的外觀，建議下載 iTerm2，它在設定上面比起原生 terminal app 來得方便。以設定文字顏色來說好了，terminal app 只能用 macOS 原生的色彩選擇介面，我覺得相當難用。而 iTerm2 可以輸入 HEX color codes 對工程師比較友善，而且網路上更有許多精美的主題能下載套用。 
+![iTerm](/media/2019-12-06-frontend-development-setup-on-macos/iterm.jpg)
 
-到 iTerm2 的設定 `Preference > Profile > Colors > Color Presets > Import`匯入下載的主題，之後就可以選擇任一個已匯入的主題。
+要進一步變更終端環境的外觀，建議下載 [iTerm2](https://iterm2.com)，它在設定上面比起原生 terminal app 來得方便。以設定文字顏色來說好了，terminal app 只能用 macOS 原生的色彩選擇介面，我覺得相當難用。而 iTerm2 可以輸入 HEX color codes 對工程師比較友善，而且網路上更有許多精美的主題能下載套用。 
+
+![iTerm theme setting](/media/2019-12-06-frontend-development-setup-on-macos/iterm-theme.jpg)
+
+到 iTerm2 的設定 `Preference > Profile > Colors > Color Presets > Import` 匯入下載的主題，之後就可以選擇任一個已匯入的主題。
 
 [iTerm2 themes](https://iterm2colorschemes.com)
 [Dracula — A dark theme for iTerm and 50+ apps](https://draculatheme.com/iterm/)
+[NightOwl](https://github.com/sdras/night-owl-vscode-theme)
 
-我用的是 [NightOwl](https://github.com/sdras/night-owl-vscode-theme) ，它同時也有製作 VSCode 用的主題。
+我用的是 NightOwl，它同時也有 VSCode 用的主題。
 
 ## 開啟 Ligature
 
-再一次進入 iTerm2 的設定`Preference > Profile > Text`，在 `Font`分類下有個`Use ligatures`的項目，將它打勾。
+![iTerm font setting](/media/2019-12-06-frontend-development-setup-on-macos/iterm-font.jpg)
+
+再一次進入 iTerm2 的設定`Preference > Profile > Text`，在 `Font` 分類下有個` Use ligatures` 的項目，將它打勾。
 
 Ligatures（連字）的作用是將一些用鍵盤打不出來而被迫拆開的運算符號轉換成原本的樣子，便於閱讀，例如當你輸入`!=`的時候，會自動變成`≠`。
 
-這種效果需要字體支援 ligatures，前面我們選擇的 Fira Mono 一開始是 Mozilla 主推的字體，等寬的字體適用在展示程式碼，有網友根據它設計了 [Fira Code](https://github.com/tonsky/FiraCode) 字體，就支援 ligatures 和 Powerline。
+![Fira Code](/media/2019-12-06-frontend-development-setup-on-macos/fira-code.jpg)
 
-官網下載安裝後，在 iTerm 的字型設定裡選擇 Fira Code Retina 14px，如果你的電腦不是高解析度螢幕，就使用 Regular 版本。
+這種效果需要字體支援 ligatures，前面我們選擇的 Fira Mono 一開始是 Mozilla 主推的字體，適用在展示程式碼，有網友根據它設計了 [Fira Code](https://github.com/tonsky/FiraCode) 字體，進一步支援 ligatures 和 Powerline。
+
+下載安裝後，在 iTerm 的字型設定裡選擇 Fira Code Retina 14px，如果你的電腦不是高解析度螢幕，就使用 Regular 版本。
+
+一個字體有沒有支援 ligatures 在字體範例裡都可以找得到，如果沒有可能是不支援。
 
 Oh My Zsh 擁有豐富的 plugin 體系，我才剛安裝，不太熟悉新環境，就介紹到這裡。如果你有其他更有趣的應用，歡迎留言跟大家分享。
 
 ## 安裝 Vue CLI
 
-將 vue cli 安裝在全域環境。
+將 [Vue CLI](https://cli.vuejs.org/) 安裝在全域環境。
 
 ```shell
 npm install -g @vue/cli
@@ -341,9 +374,13 @@ vue create my-project
 vue ui
 ```
 
+簡單！
+
 ## Create React App
 
-之前建立 React 專案時也是要先安裝 create react app 在全域環境中，現在React 官網建議使用新的`npx`指令。
+之前建立 React 專案時也是要先全域安裝 Create React App，現在 React 官網[建議](https://create-react-app.dev/docs/getting-started/)使用新的 `npx` 指令，所以如果之前你有裝過 Create React App，現在可以刪除它 `npm uninstall -g create-react-app`。
+
+創建新的 React 專案：
 
 ```shell
 npx create-react-app my-project
