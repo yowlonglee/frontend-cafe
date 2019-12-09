@@ -328,7 +328,7 @@ Oh My Zsh 自帶許多主題，Robbyrussell 和 Agnoster 是其中二個，完�
 
 ![iTerm theme setting](/media/2019-12-06-frontend-development-setup-on-macos/iterm-theme.jpg)
 
-到 iTerm2 的設定 `Preference > Profile > Colors > Color Presets > Import` 匯入下載的主題，之後就可以選擇任一個已匯入的主題。
+到 iTerm2 的設定 `Profile > Colors`，在 `Color Presets` 分類選擇 `Import` 匯入下載的主題，之後就可以選擇任一個已匯入的主題。
 
 [iTerm2 themes](https://iterm2colorschemes.com)
 [Dracula — A dark theme for iTerm and 50+ apps](https://draculatheme.com/iterm/)
@@ -340,7 +340,7 @@ Oh My Zsh 自帶許多主題，Robbyrussell 和 Agnoster 是其中二個，完�
 
 ![iTerm font setting](/media/2019-12-06-frontend-development-setup-on-macos/iterm-font.jpg)
 
-再一次進入 iTerm2 的設定`Preference > Profile > Text`，在 `Font` 分類下有個` Use ligatures` 的項目，將它打勾。
+再一次進入 iTerm2 的設定`Profile > Text`，在 `Font` 分類下有個` Use ligatures` 的項目，將它打勾。
 
 Ligatures（連字）的作用是將一些用鍵盤打不出來而被迫拆開的運算符號轉換成原本的樣子，便於閱讀，例如當你輸入`!=`的時候，會自動變成`≠`。
 
