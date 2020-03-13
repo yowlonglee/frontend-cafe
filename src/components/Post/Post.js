@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import Author from './Author';
-import Comments from './Comments';
+import Commento from './Commento';
 import Content from './Content';
 import Meta from './Meta';
 import Tags from './Tags';
@@ -17,7 +17,8 @@ const Post = ({ post }: Props) => {
   const { html } = post;
   const { tagSlugs, slug } = post.fields;
   const { tags, title, date } = post.frontmatter;
-
+  const uniquePostId = post.id;
+  
   return (
     <div className={styles['post']}>
       <Link className={styles['post__home-button']} to="/">All Articles</Link>
@@ -32,9 +33,7 @@ const Post = ({ post }: Props) => {
         <Author />
       </div>
 
-      <div className={styles['post__comments']}>
-        <Comments postSlug={slug} postTitle={post.frontmatter.title} />
-      </div>
+      <Commento id={uniquePostId} />
     </div>
   );
 };
