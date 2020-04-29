@@ -25,7 +25,7 @@ const Commento = ({id}) => {
     const document = window.document;
     // In case our #commento container exists we can add our commento script
     if (document.getElementById('commento')) {
-      insertScript(`https://frontend-cafe-commento.herokuapp.com/js/commento.js`, `commento-script`, document.body);
+      insertScript(`${process.env.COMMENTO_SCRIPT_SOURCE}`, `commento-script`, document.body);
     }
 // Cleanup; remove the script from the page
     return () => removeScript(`commento-script`, document.body);
