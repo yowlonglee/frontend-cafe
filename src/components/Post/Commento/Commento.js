@@ -5,6 +5,7 @@ const insertScript = (src, id, parentElement) => {
   script.async = true;
   script.src   = src;
   script.id    = id;
+  script.dataset.cssOverride = `${process.env.GATSBY_SITE_URL}/src/assets/commento.css`;
   parentElement.appendChild(script);
 return script;
 };
