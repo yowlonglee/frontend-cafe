@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
 // Helper to add scripts to our page
-const insertScript = (src, id, parentElement) => {
+const insertScript = (src, id, cssSrc, parentElement) => {
   const script = window.document.createElement('script');
   script.async = true;
   script.src   = src;
   script.id    = id;
-  script.dataset.cssOverride = `${process.env.GATSBY_SITE_URL}/src/assets/commento.css`;
+  script.dataset.cssOverride = cssSrc;
   parentElement.appendChild(script);
 return script;
 };
+
 // Helper to remove scripts from our page
 const removeScript = (id, parentElement) => {
   const script = window.document.getElementById(id);
@@ -16,6 +17,8 @@ const removeScript = (id, parentElement) => {
     parentElement.removeChild(script);
   }
 };
+
+
 // The actual component
 const Commento = ({id}) => {
   useEffect(() => {
@@ -26,7 +29,7 @@ const Commento = ({id}) => {
     const document = window.document;
     // In case our #commento container exists we can add our commento script
     if (document.getElementById('commento')) {
-      insertScript(`${process.env.GATSBY_COMMENTO_SCRIPT_SOURCE}`, `commento-script`, document.body);
+      insertScript(`${process.env.GATSBY_COMMENTO_SCRIPT_SOURCE}`, `commento-script`, `${process.env.GATSBY_COMMENTO_CSS_SOURCE}`, document.body);
     }
 // Cleanup; remove the script from the page
     return () => removeScript(`commento-script`, document.body);
