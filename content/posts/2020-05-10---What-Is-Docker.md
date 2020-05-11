@@ -7,7 +7,7 @@ slug: "/posts/what-is-docker/"
 category: "Tutorial"
 tags:
   - "Docker"
-description: "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat."
+description: "解釋什麼是Docker"
 ---
 # 什麼是 Docker？
 # Docker 有什麼好處？
