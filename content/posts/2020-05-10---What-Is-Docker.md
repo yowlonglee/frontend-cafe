@@ -13,28 +13,35 @@ description: "解釋什麼是Docker"
 
 # Docker 是什麼？
 
-Docker是虛擬化技術的一種
+Docker的基本執行環境是一個container
 
-一般人熟悉的虛擬化技術應該是虛擬機器
+一個container裡面可以運行一個或多個應用程式
 
-不外是Paralles Desktop, VM Ware，VirtualBox， 以及 BootCamp，在macos可以跑Windows
+Container之間各自獨立互不影響
 
-虛擬機器是透過軟體虛擬出一個和硬體一樣的環境，在裡面安裝作業系統，可以看成在你的電腦內變出另一台電腦
+透過 network port 連接
 
-但是有時我們開發時並不需要guest OS全部的功能，我們只是需要在guest OS上跑個應用程式或伺服器。
+Docker image
 
-用虛擬機器一定要分配硬體資源執行我們不需要的guest OS底層功能
+以做菜比喻，image是食譜，container是按照食譜做出來的菜
 
-Docker也是在解決相同的問題
-在Docker只會虛擬需要執行應用程式的最小資源，在一個獨立的container環境下運行
+我們在一個文檔 Dockerfile 裡撰寫 comand line 來構建環境
 
-裡面不是整套作業系統，所以Docker的檔案很小，適合透過網路分享
+包括 image 的資料結構、引用的 image 檔案，以及要運行的命令
 
-Docker架構讓container裡的應用程式直接存取主機的硬體資源如網路、IO
+接著我們讓Docker根據 Dockerfile 打包出唯讀的 Docker Image 檔案
 
-比起虛擬機器裡的應用程式要透過guest OS來得有效
+之後Docker就能執行image建立container
 
-所以Docker使用起來非常快速
+如同一道食譜可以做出許多一樣的菜
+
+一個image可以建立許多個一模一樣的containers
+
+Docker image打包好後就不能更改
+
+有修改的話
+
+需要從新的Dockerfile重新打包
 
 # 重要觀念
 Container
@@ -45,19 +52,29 @@ Docker的基本執行環境是一個container
 
 Container之間各自獨立互不影響
 
-透過網路連接
+透過 network port 連接
 
 Docker image
 
-我們透過Docker image 建立container 
-
-在image裡面構建了container的環境
-
 以做菜比喻，image是食譜，container是按照食譜做出來的菜
 
-一道食譜可以做出許多一樣的菜
+我們在一個文檔 Dockerfile 裡撰寫 comand line 來構建環境
 
-所以一個image可以建立多個一模一樣的containers
+包括 image 的資料結構、引用的 image 檔案，以及要運行的命令
+
+接著我們讓Docker根據 Dockerfile 打包出唯讀的 Docker Image 檔案
+
+之後Docker就能執行image建立container
+
+如同一道食譜可以做出許多一樣的菜
+
+一個image可以建立許多個一模一樣的containers
+
+Docker image打包好後就不能更改
+
+有修改的話
+
+需要從新的Dockerfile重新打包
 
 Docker hub
 
@@ -65,17 +82,9 @@ Docker Hub可以看成是Docker image 的APP Store
 
 當Docker在local找不到要執行的image，就會自動到Docker Hub去找
 
-一些熱門的images如node.js, ubantu在Docker Hub裡已經有現成你可以拿來用
+一些熱門的images如node.js, ubantu在Docker Hub裡已經有現成可以拿來用
 
 你也可以製作自己的image上傳到Docker Hub給其他人下載
-
-Dockerfile
-
-在Dockerfile裡我們用comand line一步步告訴Docker如何打包image檔案
-
-包括image的資料結構、使用的image檔案，以及要運行的命令
-
-Docker image打包好後就不能更改，需要從新的Dockerfile重新打包
 
 Docker Compose
 
@@ -88,6 +97,10 @@ Docker Compose
 二者各自運行在自己的Docker container
 
 使用Docker Compose，就可以只用一個yml檔案來設定所有的containers
+
+下一道命令就能自動完成佈署
+
+非常方便
 
 # 安裝過程
 Install Docker Desktop
