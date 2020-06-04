@@ -9,8 +9,6 @@ tags:
   - "Docker"
 description: "解釋什麼是Docker"
 ---
-最近在為部落格安裝留言系統時接觸到 Docker，記錄一下學到的東西。
-
 # Docker 是什麼？
 
 Docker的基本執行環境是一個container
@@ -102,12 +100,80 @@ Docker Compose
 
 非常方便
 
-# 安裝過程
-Install Docker Desktop
+## 安裝過程
+這裡示範在 local 安裝 Docker 的開發環境
 
-# 操作方式
-Download images from Docker Hub
-Apps
-Run containers from command line and dashboard
-Manage containers and images
-Create image from yml file
+Install Docker Desktop
+首先到[官網](https://www.docker.com/products/docker-desktop)下載 Docker Desktop
+有 Mac 版和 Windows 版
+雖然Docker可以完全透過 command line 操作
+但是 Docker Desktop 提供了GUI介面讓初次接觸的人能直接查看及管理 Docker apps 和 containers
+還有視覺化的選單讓我們設定分配給 Docker 的硬體資源
+macOS 及 Windows版本的 Docker Desktop 同時包含 Docker Engine 及 Docker Compose
+Linux 則要先裝 Docker Engine 後，再裝 Docker Compose
+
+## 用 Docker 打包一個 Node.js web app
+[Docker Compose reference](https://docs.docker.com/compose/compose-file/)
+在local端建立一個 Node.js 應用程式，然後用Docker打包成 Docker image
+應用程式使用Express框架
+
+要佈署到網際網路的話
+許多雲端平台服務（如 Heroku）都有支援Docker image
+佈署的方式請參考他們的說明文件
+
+
+
+### 建立 Node.js app
+首先建立專案目錄`docker-node-demo`
+
+在目錄下新增 `package.json`
+
+```json
+{
+  "name": "docker-node-demo",
+  "version": "1.0.0",
+  "description": "A Node.js app runs on Docker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "John Doe <johndoe@aaa.com>",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+```
+
+以下二項需要注意：
+`"main"`：App 的 entrypoint 檔案 `index.js`，等一下要建立。
+`"dependencies"`：App 依賴的套件，我們使用 Express 4.17.1 以上的版本。
+
+接著安裝應用程式依賴的套件
+```bash
+npm install
+```
+npm version 5 以上，同時會產生一個`package-lock.json`檔案，也是要拷貝到 Docker image
+
+在根目錄新增 `index.js`檔案，這是應用程式的主要內容
+
+```javascript
+const express = require('express');
+
+const PORT = 8080;
+const HOST = "0.0.0.0";
+
+const app = express();
+
+app.get('/', async (request, response) => {
+    response.send('Hello World');
+});
+
+app.listen(PORT || HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
+```
+
+這時在專案根目錄執行`node .`，會啟動 Node server，用瀏覽器到`localhost:8080`會看到 Hello World 的回傳值。
+
+恭喜你，你已經踏出成為全端工程師的第一步，但我們的腳步不會停下來，接下來我們用 Docker  將應用程式打包起來。
+
+用`ctrl + c`結束 Node server
