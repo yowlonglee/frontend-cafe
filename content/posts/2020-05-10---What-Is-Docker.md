@@ -100,17 +100,19 @@ Docker Compose
 
 非常方便
 
-## 安裝過程
-這裡示範在 local 安裝 Docker 的開發環境
-
-Install Docker Desktop
-首先到[官網](https://www.docker.com/products/docker-desktop)下載 Docker Desktop
+## Install Docker Desktop
+在 local 安裝 Docker 的開發環境相當簡單
+只要到[官網](https://www.docker.com/products/docker-desktop)下載並安裝 Docker Desktop 就可以了
 有 Mac 版和 Windows 版
+安裝程式會一併裝好 command line tools
+
 雖然Docker可以完全透過 command line 操作
 但是 Docker Desktop 提供了GUI介面讓初次接觸的人能直接查看及管理 Docker apps 和 containers
 還有視覺化的選單讓我們設定分配給 Docker 的硬體資源
 macOS 及 Windows版本的 Docker Desktop 同時包含 Docker Engine 及 Docker Compose
 Linux 則要先裝 Docker Engine 後，再裝 Docker Compose
+
+啟動Docker app後，會在工具列看到 Docker 的吉祥物小鯨魚。
 
 ## 用 Docker 打包一個 Node.js web app
 [Docker Compose reference](https://docs.docker.com/compose/compose-file/)
@@ -133,9 +135,9 @@ Linux 則要先裝 Docker Engine 後，再裝 Docker Compose
   "name": "docker-node-demo",
   "version": "1.0.0",
   "description": "A Node.js app runs on Docker",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ."
+    "start": "node app.js"
   },
   "author": "John Doe <johndoe@aaa.com>",
   "dependencies": {
@@ -145,7 +147,7 @@ Linux 則要先裝 Docker Engine 後，再裝 Docker Compose
 ```
 
 以下二項需要注意：
-`"main"`：App 的 entrypoint 檔案 `index.js`，等一下要建立。
+`"main"`：App 的 entrypoint 檔案 `app.js`，等一下要建立。
 `"dependencies"`：App 依賴的套件，我們使用 Express 4.17.1 以上的版本。
 
 接著安裝應用程式依賴的套件
@@ -154,7 +156,7 @@ npm install
 ```
 npm version 5 以上，同時會產生一個`package-lock.json`檔案，也是要拷貝到 Docker image
 
-在根目錄新增 `index.js`檔案，這是應用程式的主要內容
+在根目錄新增 `app.js`檔案，這是應用程式的主要邏輯
 
 ```javascript
 const express = require('express');
@@ -172,8 +174,75 @@ app.listen(PORT || HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 ```
 
-這時在專案根目錄執行`node .`，會啟動 Node server，用瀏覽器到`localhost:8080`會看到 Hello World 的回傳值。
+這時在專案根目錄執行`node .`，會啟動 Node server，用瀏覽器到`localhost:8080`會看到 “Hello World” 的回傳值。
 
-恭喜你，你已經踏出成為全端工程師的第一步，但我們的腳步不會停下來，接下來我們用 Docker  將應用程式打包起來。
+恭喜你，你已經踏出成為全端工程師的第一步，但我們的腳步不會停下來，接下來我們用 Docker  將應用程式打包起來，然後在 Docker container 裡跑應用程式。
 
 用`ctrl + c`結束 Node server
+
+### Write the Dockerfile
+在專案根目錄新增`Dockerfile`檔案，注意這個檔案沒有副檔名，而且D要大寫。
+
+用編輯器打開`Dockerfile`，首先我們要引用既有的 image，在 [Docker Hub](https://hub.docker.com/_/node) 查到目前最新的Node LTS 版本號是12
+```
+FROM node:12
+```
+
+然後我們設定應用程式的工作目錄，在這之後的指令都會以此目錄為主。
+
+
+```
+WORKDIR /usr/src/app
+```
+
+如果 `WROKDIR` 沒有設的話，Docker 會自動幫你創建。
+
+接下來為應用程式安裝依賴套件，把`package.json`檔案複製到工作目錄，然後執行`npm install`，注意如果NPM是版本5以上，`package-lock.json`也要同時複製
+
+```
+COPY package*.json ./
+
+RUN npm install
+```
+
+再來把我們寫的應用程式原始碼複製到 image 裡。
+
+```
+COPY . .
+```
+
+接著開放 container 的8080 port 對外介接
+```
+EXPOSE 8080
+```
+
+最後下命令啟動應用程式
+```
+CMD ["node", "app.js"]
+```
+
+### Build Docker image
+在`Dockerfile`的所在目錄也就是專案的根目錄執行下面的命令來打包 Docker image。`-t` 後面的參數是你為這個image自訂的名稱，在用`docker image`命令檢查的時候會比較方便。不然Docker會自動幫你取名。
+
+```bash
+docker build -t docker-node-demo .
+```
+
+用`docker images`檢查存在的 image
+(attach an image)
+
+### Run the image
+
+`docker run` 能依照指定的 image 建立一個 container。
+`-p`用來指定主機和 container port 的對應關係，這裡我們把主機的 8000 port 對應到前面開放的 8080 port。
+`-d` 讓這個 container 以 detach mode 在背景執行，如此一來在終端機就不會顯示任何訊息。
+最後指定使用的 image 名稱。
+
+```bash
+docker run -p 8000:8080 -d docker-node-demo
+```
+
+到`localhost:8000`就能看到我們的 Node.js app 運作成功！
+
+用`docker ps`檢查正在運行的 container 
+(attach an image)
