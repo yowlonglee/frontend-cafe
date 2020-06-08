@@ -9,37 +9,25 @@ tags:
   - "Docker"
 description: "解釋什麼是Docker"
 ---
-# Docker 是什麼？
+## Docker 是什麼？
+Docker 是虛擬化技術的一種。
 
-Docker的基本執行環境是一個container
+一般人熟悉的虛擬化技術應該是虛擬機器，虛擬機器是透過軟體虛擬出一個和硬體一樣的環境，可以看成在大型電腦內切割出許多小型電腦。
 
-一個container裡面可以運行一個或多個應用程式
+這樣的好處是，透過虛擬機器，我們可以在一台大型主機上執行許多個作業系統，只要主機的資源能夠負荷，不僅節省採購多種硬體的成本，也能減少主機管理員的工作。
 
-Container之間各自獨立互不影響
+個人使用上像是 Parallels Desktop, VM Ware，VirtualBox 這些套裝軟體，都是用了虛擬機器的技術。
 
-透過 network port 連接
+虛擬機器的缺點在於如果主機硬體資源不夠強大，同時要跑二個以上的作業系統會讓應用程式執行速度變慢，這是因為完整的作業系統需要資源來執行一些底層功能。
 
-Docker image
+Docker 的誕生就是為了解決這個問題。
 
-以做菜比喻，image是食譜，container是按照食譜做出來的菜
+Docker 提出了 container 的虛擬化技術，如同虛擬機器，container 之間也是各自獨立的封閉單元，互相用網路線路連線。 
 
-我們在一個文檔 Dockerfile 裡撰寫 comand line 來構建環境
+不過 container 裡是精簡化的作業系統，只包含能執行應用程式最基本的功能。
 
-包括 image 的資料結構、引用的 image 檔案，以及要運行的命令
+因此 container 可以在數秒之內啟動，而且不會對主機的硬體資源帶來額外的負擔。
 
-接著我們讓Docker根據 Dockerfile 打包出唯讀的 Docker Image 檔案
-
-之後Docker就能執行image建立container
-
-如同一道食譜可以做出許多一樣的菜
-
-一個image可以建立許多個一模一樣的containers
-
-Docker image打包好後就不能更改
-
-有修改的話
-
-需要從新的Dockerfile重新打包
 
 # 重要觀念
 Container
